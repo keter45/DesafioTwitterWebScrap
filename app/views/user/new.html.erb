@@ -1,8 +1,10 @@
-<% @user.errors.full_messages.each do |msg| %>
-  <div class="alert alert-danger" role="alert">
-    <%=msg%>
-  </div>
+<% if @user.errors.any? %>
+  <% @user.errors.full_messages.each do |msg| %>
+    <div class="alert alert-danger" role="alert">
+      <%=msg%>
+    </div>
 <%end%>
+<% end %>
 
 <div class="create-user-container">
   <h1>Criação de um novo Usuário</h1>

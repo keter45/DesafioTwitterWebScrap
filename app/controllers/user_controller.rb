@@ -16,22 +16,24 @@ class UserController < ApplicationController
   def create
     
     res = params.require(:user).permit(:name, :twitterUrl) 
-  
-    twitterInfo = scraper(res[:twitterUrl])
+    url = res[:twitterUrl]
+
+    twitterInfo = scraper(url)
     
     #Config UrlShorty
-    #UrlShorty.api_key("AIzaSyC4rZhdzvrqp6ZXKZrur5i97ht4FBqWz00")
-    #res[:twitterUrl] = UrlShorty.shorten_url(res[:twitterUrl])
-    
-    res[:twitterName] = twitterInfo[:username]
-    res[:description] = twitterInfo[:desc]
-    res[:profilePicUrl] = twitterInfo[:profile]
-    res[:coverPicUrl] = twitterInfo[:cover]
+    #Google::UrlShortener::Base.api_key = "AIzaSyC4rZhdzvrqp6ZXKZrur5i97ht4FBqWz00"
+    #url =  Google::UrlShortener.shorten!("https://twitter.com/LeksDeKonoha")
+    #res[:twitterUrl] = url   
 
     @user = User.new res 
+
+    @user[:twitterName] = twitterInfo[:username]
+    @user[:description] = twitterInfo[:desc]
+    @user[:profilePicUrl] = twitterInfo[:profile]
+    @user[:coverPicUrl] = twitterInfo[:cover]
     
     if @user.save
-      flash[:notice] = "Usuario criado com sucesso!"
+      flash[:success] = "Usuario criado com sucesso!"
       redirect_to root_path
     else
       render :new
@@ -53,7 +55,6 @@ class UserController < ApplicationController
   end
 
   def search
-
     @query = params[:query]
     @users = User.where("name like ?", "%#{@query}%")
     .or(User.where("description like ?", "%#{@query}%"))
@@ -69,8 +70,20 @@ class UserController < ApplicationController
   private
   def scraper (twitter)
     url = "#{twitter}"
+    twitterProf = {desc: '',username: '',profile: '',cover: ''}
+    
+    #checa se o link é valido
+    if(!(url.match(/http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/)))
+      return twitterProf
+    end
+
     unparsed_page = HTTParty.get(url)
     parsed_page = Nokogiri::HTML(unparsed_page)
+    
+    #checa se usuario é valido
+    if(parsed_page.css('div.errorpage-global-nav').count != 0)
+      return twitterProf 
+    end
 
     twitterProf = {
       desc: parsed_page.css('p.ProfileHeaderCard-bio').text,

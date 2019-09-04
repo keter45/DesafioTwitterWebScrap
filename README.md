@@ -12,7 +12,7 @@ And to generate Users table:
 
     $ rails db:migrate
     
-And than:
+And then:
 
     $ rails s
     

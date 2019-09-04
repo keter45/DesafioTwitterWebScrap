@@ -11,7 +11,11 @@ To run this project execute:
 And to generate Users table:
 
     $ rails db:migrate
+    
+And than:
 
+    $ rails s
+    
 This project uses:
 
 - rails '~> 5.2.0'

@@ -1,5 +1,9 @@
 # README
 
+Exemple:
+
+https://media.giphy.com/media/RgnFCKJNZGIwBc6jj8/giphy.gif
+
 Ruby version:
 
     $ ruby '2.5.3'

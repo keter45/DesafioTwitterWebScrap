@@ -2,7 +2,7 @@
 
 Exemple:
 
-<img src="https://media.giphy.com/media/RgnFCKJNZGIwBc6jj8/giphy.gif">
+<img src="https://gph.is/g/EGq3Lq1">
 
 Ruby version:
 

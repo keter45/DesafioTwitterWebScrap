@@ -1,24 +1,22 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby version:
 
-Things you may want to cover:
+    $ ruby '2.5.3'
 
-* Ruby version
+To run this project execute:
 
-* System dependencies
+    $ bundle install
 
-* Configuration
+And to generate Users table:
 
-* Database creation
+    $ rails db:migrate
 
-* Database initialization
+This project uses:
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+rails '~> 5.2.0'
+sqlite3
+rails-i18n to translate some messages
+httparty to get the entiry html page
+nokogiri as a webscrap
+kaminari to paginate

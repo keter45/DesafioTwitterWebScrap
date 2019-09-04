@@ -1,0 +1,164 @@
+// Place all the styles related to the user controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.user-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+  ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 30px;
+    margin-top: 50px;
+    li {
+      display: flex;
+      flex-direction: column;
+      color: #333;
+      background: #fff;
+      border: 1px solid #eee;
+      padding: 15px 20px;
+      border-radius: 0 0 5px 5px;
+    }
+  }
+}
+.user-container ul li strong {
+  font-size: 24px;
+}
+.user-container ul li small {
+  font-size: 14px;
+}
+.user-container ul li a {
+  line-height: 60px;
+  text-decoration: none;
+  font-size: 16px;
+  color: #333;
+}
+
+.create-user-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 25px 5px;
+  color: #333;
+}
+.create-user-container form input {
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  height: 38px;
+  padding: 0 15px;
+  font-size: 16px;
+  color: #666;
+}
+.create-user-container form .form-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr 2fr);
+  align-items: center;
+}
+.create-user-container form label {
+  margin-top: 20px;
+}
+.create-user-container form input::placeholder {
+  color: #999;
+}
+form input.button {
+  margin-top: 10px;
+  border: 0;
+  border-radius: 4px;
+  height: 38px;
+  font-size: 16px;
+  background: rgb(49, 48, 48);
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  padding: 2px 7px;
+}
+.button:hover {
+  background: #999;
+}
+.create-user-container form input.button,
+.user-container form input.button {
+  width: 100%;
+  grid-column-end: 3;
+}
+
+nav .form-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  input {
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    height: 38px;
+    padding: 0 15px;
+    font-size: 16px;
+  }
+}
+
+.user-container header {
+  position: relative;
+  width: 100%;
+  z-index: 4;
+  margin-bottom: 35px;
+  img.profile {
+    position: relative;
+    border-radius: 100%;
+    border: 5px solid #eee;
+    width: 50%;
+    top: 35px;
+  }
+  img.cover {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -9999px;
+    bottom: -9999px;
+    margin: auto 0;
+    height: 100%;
+  }
+  .cover-stabilizer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+  }
+}
+
+.pagination {
+  margin-right: 5px;
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
+  .current {
+    background: rgb(88, 88, 88);
+  }
+  span {
+    font-size: 16px;
+    background: rgb(49, 48, 48);
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    padding: 8px 12px;
+  }
+  span:hover {
+    background: #999;
+  }
+}
+
+@media only screen and (max-width: 980px) {
+  .user-container ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .user-container ul {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

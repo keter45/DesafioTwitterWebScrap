@@ -2,7 +2,7 @@
 
 Exemple:
 
-https://gph.is/g/EGq3Lq1
+https://giphy.com/gifs/RgnFCKJNZGIwBc6jj8/html5
 
 Ruby version:
 

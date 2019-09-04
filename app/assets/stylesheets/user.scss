@@ -139,8 +139,10 @@ nav .form-group {
     text-decoration: none;
     color: #fff;
   }
-  .current {
+  .current,
+  .current:hover {
     background: rgb(88, 88, 88);
+    cursor: default;
   }
   span {
     font-size: 16px;
@@ -150,7 +152,8 @@ nav .form-group {
     cursor: pointer;
     padding: 8px 12px;
   }
-  span:hover {
+  span:hover,
+  span:hover span {
     background: #999;
   }
 }

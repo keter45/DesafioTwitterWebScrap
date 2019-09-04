@@ -1,5 +1,9 @@
 # README
 
+Exemple:
+
+<iframe src="https://giphy.com/embed/RgnFCKJNZGIwBc6jj8" width="480" height="309" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/RgnFCKJNZGIwBc6jj8">via GIPHY</a></p>
+
 Ruby version:
 
     $ ruby '2.5.3'

@@ -13,7 +13,7 @@
       <strong> <%= u.name %> </strong>
       <small> @<%= u.twitterName %> </small>
       <footer>
-        <a href="#"> <%= u.twitterUrl %> </a>
+         <%= link_to u.twitterUrl, u.twitterUrl, :target => "_blank" %>
         <p><%= u.description %></p>
       </footer>
       <%= button_to 'Editar', edit_user_path(u),method: :get ,class: 'button'%>

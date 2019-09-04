@@ -21,8 +21,8 @@ class UserController < ApplicationController
     
     #Config UrlShorty
     #UrlShorty.api_key("AIzaSyC4rZhdzvrqp6ZXKZrur5i97ht4FBqWz00")
-
     #res[:twitterUrl] = UrlShorty.shorten_url(res[:twitterUrl])
+    
     res[:twitterName] = twitterInfo[:username]
     res[:description] = twitterInfo[:desc]
     res[:profilePicUrl] = twitterInfo[:profile]

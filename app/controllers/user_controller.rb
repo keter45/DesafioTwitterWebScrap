@@ -13,20 +13,15 @@ class UserController < ApplicationController
     @user = User.new
   end
 
-  def create
-    
+  def create    
     res = params.require(:user).permit(:name, :twitterUrl) 
     url = res[:twitterUrl]
 
     twitterInfo = scraper(url)
     
-    #Config UrlShorty
-    #Google::UrlShortener::Base.api_key = "AIzaSyC4rZhdzvrqp6ZXKZrur5i97ht4FBqWz00"
-    #url =  Google::UrlShortener.shorten!("https://twitter.com/LeksDeKonoha")
-    #res[:twitterUrl] = url   
-
     @user = User.new res 
 
+    @user[:twitterUrl] = url_shortner(url)
     @user[:twitterName] = twitterInfo[:username]
     @user[:description] = twitterInfo[:desc]
     @user[:profilePicUrl] = twitterInfo[:profile]
@@ -68,10 +63,9 @@ class UserController < ApplicationController
   end
   
   private
-  def scraper (twitter)
-    url = "#{twitter}"
+  def scraper (url)
     twitterProf = {desc: '',username: '',profile: '',cover: ''}
-    
+
     #checa se o link é valido
     if(!(url.match(/http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/)))
       return twitterProf
@@ -98,5 +92,15 @@ class UserController < ApplicationController
     end
 
     return twitterProf
+  end
+
+  def url_shortner(url)
+    request = JSON.parse(HTTParty.post('https://api-ssl.bitly.com/v4/shorten', 
+      body: {long_url: url}.to_json,
+      headers: { "Content-Type": "application/json", authorization: "Bearer 6cf4e8d64cada722632b3e511f8bd468ebeaea23" }
+    ).to_json)
+    link = request['link']
+
+    return link
   end
 end

@@ -2,7 +2,7 @@
 
 Exemple:
 
-https://giphy.com/gifs/RgnFCKJNZGIwBc6jj8/html5
+https://media.giphy.com/media/RgnFCKJNZGIwBc6jj8/giphy.gif
 
 Ruby version:
 

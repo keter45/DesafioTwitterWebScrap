@@ -8,7 +8,7 @@ Ruby version:
 
     $ ruby '2.5.3'
 
-To run this project execute:
+To run this project first do:
 
     $ bundle install
 

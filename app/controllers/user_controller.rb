@@ -19,7 +19,7 @@ class UserController < ApplicationController
     
     @user = User.new res
 
-    #checa se o link é valido
+    #Check if its a valid Twitter url
     if(url.match(/http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/))
 
       twitterInfo = scraper(url)
@@ -74,12 +74,12 @@ class UserController < ApplicationController
     parsed_page = Nokogiri::HTML(unparsed_page)
     cover = 'https://pbs.twimg.com/profile_banners/783214/1556918042/600x200'
     
-    #checa se existe usuario
+    #Check if its a valid user
     if(parsed_page.css('div.errorpage-global-nav').count != 0)
       return twitterProf 
     end
 
-    #Checa se o usuario tem imagem de capa
+    #Check if user has cover img
     if(parsed_page.css('div.ProfileCanopy-headerBg img.u-hidden').count == 0)
       cover = parsed_page.css('div.ProfileCanopy-headerBg img').attr('src').value
     end

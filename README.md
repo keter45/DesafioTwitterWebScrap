@@ -25,7 +25,7 @@ This project uses:
 
 - rails '~> 5.2.0'
 - sqlite3
-- rails-i18n : to translate some messages
-- httparty : to get the entiry html page
-- nokogiri : as a webscrap
-- kaminari : to paginate
+- rails-i18n
+- httparty
+- nokogiri
+- kaminari

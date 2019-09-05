@@ -15,22 +15,27 @@ class UserController < ApplicationController
 
   def create    
     res = params.require(:user).permit(:name, :twitterUrl) 
-    url = res[:twitterUrl]
-
-    twitterInfo = scraper(url)
+    url = res[:twitterUrl]    
     
-    @user = User.new res 
+    @user = User.new res
 
-    @user[:twitterUrl] = url_shortner(url)
-    @user[:twitterName] = twitterInfo[:username]
-    @user[:description] = twitterInfo[:desc]
-    @user[:profilePicUrl] = twitterInfo[:profile]
-    @user[:coverPicUrl] = twitterInfo[:cover]
+    #checa se o link é valido
+    if(url.match(/http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/))
+
+      twitterInfo = scraper(url)
+
+      @user[:twitterUrl] = url_shortner(url)
+      @user[:twitterName] = twitterInfo[:username]
+      @user[:description] = twitterInfo[:desc]
+      @user[:profilePicUrl] = twitterInfo[:profile]
+      @user[:coverPicUrl] = twitterInfo[:cover]
+      
+    end
     
     if @user.save
       flash[:success] = "Usuario criado com sucesso!"
       redirect_to root_path
-    else
+    else 
       render :new
     end    
   end
@@ -64,32 +69,27 @@ class UserController < ApplicationController
   
   private
   def scraper (url)
-    twitterProf = {desc: '',username: '',profile: '',cover: ''}
-
-    #checa se o link é valido
-    if(!(url.match(/http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/)))
-      return twitterProf
-    end
-
+    twitterProf = {desc: '',username: '',profile: '',cover: ''}    
     unparsed_page = HTTParty.get(url)
     parsed_page = Nokogiri::HTML(unparsed_page)
+    cover = 'https://pbs.twimg.com/profile_banners/783214/1556918042/600x200'
     
-    #checa se usuario é valido
+    #checa se existe usuario
     if(parsed_page.css('div.errorpage-global-nav').count != 0)
       return twitterProf 
+    end
+
+    #Checa se o usuario tem imagem de capa
+    if(parsed_page.css('div.ProfileCanopy-headerBg img.u-hidden').count == 0)
+      cover = parsed_page.css('div.ProfileCanopy-headerBg img').attr('src').value
     end
 
     twitterProf = {
       desc: parsed_page.css('p.ProfileHeaderCard-bio').text,
       username: parsed_page.css('a.ProfileHeaderCard-screennameLink b').text,
       profile: parsed_page.css('img.ProfileAvatar-image').attr('src').value,
-      cover:  '' 
+      cover: cover 
     }    
-
-    #Checa se o usuario tem imagem de capa
-    if(parsed_page.css('div.ProfileCanopy-headerBg img.u-hidden').count == 0)
-      twitterProf[:cover] = parsed_page.css('div.ProfileCanopy-headerBg img').attr('src').value
-    end
 
     return twitterProf
   end

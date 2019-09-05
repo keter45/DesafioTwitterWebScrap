@@ -1,0 +1,49 @@
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>" role="alert">
+    <%=value%>
+  </div>
+<%end%>
+
+<div class="user-container">
+
+<% if @users.length < 1 %>
+  <div class="center">
+    <div class="empty">
+      <p> Nenhum Usuario Econtrado :( </p>
+      <%= button_to "Criar novo usuario",new_user_path,class: 'button'%>
+    </div>
+  </div>
+<% end %>
+
+  <ul>
+    <% @users.each do |u|%>
+    <li>
+    <header>
+    <div class='cover-stabilizer'>
+      <div class='cover-container'>
+        <%= image_tag(u.coverPicUrl, class: "cover") %>
+      </div>
+    </div>
+      <%= image_tag(u.profilePicUrl, class: "profile") %>      
+    </header>
+      <strong> <%= u.name %> </strong>
+      <small> @<%= u.twitterName %> </small>
+      <footer>
+         <%= link_to u.twitterUrl, u.twitterUrl, :target => "_blank" %>
+        <p><%= u.description %></p>
+      </footer>
+      <%= button_to 'Editar', edit_user_path(u),method: :get ,class: 'button'%>
+      <%= 
+      button_to 'Deletar', 
+      u, 
+      method: :delete, 
+      class: 'button', 
+      data:{
+        confirm: "Tem certeza que deseja remover o Usuário #{u.name}?"
+        }
+      %>
+    </li>
+    <% end %>
+  </ul>
+  <%= paginate @users %>
+</div>

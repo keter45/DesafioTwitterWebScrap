@@ -58,7 +58,7 @@ class UserController < ApplicationController
     @query = params[:query]
     @users = User.where("name like ?", "%#{@query}%")
     .or(User.where("description like ?", "%#{@query}%"))
-    .or(User.where("twitterName like ?", "%#{@query}%"))
+    .or(User.where("twitterName like ?", "%#{@query}%")).page(params[:page])
 
   end  
 
@@ -91,7 +91,7 @@ class UserController < ApplicationController
       cover: cover 
     }    
 
-    return twitterProf
+    twitterProf
   end
 
   def url_shortner(url)
@@ -101,6 +101,6 @@ class UserController < ApplicationController
     ).to_json)
     link = request['link']
 
-    return link
+    link
   end
 end

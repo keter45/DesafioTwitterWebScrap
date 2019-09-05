@@ -12,8 +12,9 @@ To run this project execute:
 
     $ bundle install
 
-And to generate Users table:
+And to create and generate Users table:
 
+    $ rails db:create
     $ rails db:migrate
 
 And then:
